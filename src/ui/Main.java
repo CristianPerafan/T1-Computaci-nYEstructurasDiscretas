@@ -2,13 +2,20 @@ package ui;
 
 import java.util.Scanner;
 
+import model.Building;
+import model.Controller;
+import model.Person;
+
 public class Main {
 	
 	//Attributes
 	private Scanner sc;
+	@SuppressWarnings("unused")
+	private Controller controller;
 
 	public Main() {
 		sc = new Scanner(System.in);
+		controller = new Controller();
 	}
 	
 	public static void main(String [] args ) {
@@ -50,7 +57,58 @@ public class Main {
 		System.out.println("*** SIMULATION INFORMATION ***\n"+
 				"Enter simulation data");
 		
+		int numberOfBuildings = sc.nextInt();
+		sc.nextLine();
 		
+		
+		for (int i = 0; i < numberOfBuildings; i++) {
+			
+			String buildingInformation = sc.nextLine();
+			
+			String [] separetedBuildingInformation = buildingInformation.split(" ");
+			
+			String identifier = separetedBuildingInformation[0];
+			
+			int numPeople = Integer.valueOf(separetedBuildingInformation[1]);
+			
+			
+			//Auxiliary array to save the people information at the building
+			@SuppressWarnings("unused")
+			Person [] peopleAtBuilding = new Person[numPeople];
+			
+			
+			int amountFloors = Integer.valueOf(separetedBuildingInformation[2]);
+			
+			int numOfficesPerFloor = Integer.valueOf(separetedBuildingInformation[3]);
+			
+			for(int j = 0;j<numPeople;j++) {
+				
+				String personInformation = sc.nextLine();
+				
+				String [] separatedPersonInformation = personInformation.split(" ");
+				
+				String name = separatedPersonInformation[0];
+				
+				int floorPersonIs = Integer.valueOf(separatedPersonInformation[1]);
+				
+				int floorPersonGoes = Integer.valueOf(separatedPersonInformation[2]);
+				
+				peopleAtBuilding[j] = new Person(name,floorPersonIs,floorPersonGoes);
+				
+			}
+			
+			
+			
+			//To create a new object(Building)
+			Building obj = new Building(identifier,numPeople,amountFloors,numOfficesPerFloor,peopleAtBuilding);
+			System.out.println(obj.toString());
+			
+			controller.addABuildingToAList(obj);
+		
+			
+			
+			
+		}
 		
 	}
 	
