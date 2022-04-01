@@ -10,7 +10,6 @@ public class Main {
 	
 	//Attributes
 	private Scanner sc;
-	@SuppressWarnings("unused")
 	private Controller controller;
 
 	public Main() {
@@ -73,7 +72,6 @@ public class Main {
 			
 			
 			//Auxiliary array to save the people information at the building
-			@SuppressWarnings("unused")
 			Person [] peopleAtBuilding = new Person[numPeople];
 			
 			
