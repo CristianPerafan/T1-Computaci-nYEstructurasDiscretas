@@ -14,5 +14,9 @@ public class Controller {
 	public void addABuildingToAList(Building obj) {
 		buildings.add(obj);
 	}
+	
+	public void ToShowBuildingInformation() {
+		
+	}
 
 }

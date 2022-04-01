@@ -11,8 +11,11 @@ public class Main {
 	//Attributes
 	private Scanner sc;
 	private Controller controller;
+	@SuppressWarnings("unused")
+	private boolean informationRegistered;
 
 	public Main() {
+		informationRegistered = false;
 		sc = new Scanner(System.in);
 		controller = new Controller();
 	}
@@ -29,10 +32,29 @@ public class Main {
 		}while(option != 0);
 	}
 	
+	public void executeOperationSimulationMenu(int option) {
+		switch(option){
+		case 0:
+			showMenu();
+			break;
+		}
+	}
+	
+	public int ShowSimulationMenu() {
+		System.out.println("*** SIMULATION MENU ***\n"+
+						"(1) Find the information of a building\n"+
+						"(0) Exit");
+		
+		int option = sc.nextInt();
+		sc.nextLine();
+		return option;
+	}
+	
 	public int showMenu() {
 		
 		System.out.println("*** MENU ***\n"+
 				"(1) Enter data to simulate the operation of the building\n"+
+				"(2) Simulation\n"+
 				"(0) Exit");
 		
 		int option = sc.nextInt();
@@ -48,6 +70,15 @@ public class Main {
 			break;
 		case 1:
 			readSimulationInformation();
+			break;
+		case 2:
+			if(informationRegistered == true) {
+				ShowSimulationMenu();
+			}
+			else {
+				System.out.println("You must first register the information of the simulation!!");
+			}
+			
 			break;
 		}
 	}
@@ -103,8 +134,7 @@ public class Main {
 			
 			controller.addABuildingToAList(obj);
 		
-			
-			
+			informationRegistered = true;
 			
 		}
 		
