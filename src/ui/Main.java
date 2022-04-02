@@ -7,7 +7,7 @@ import model.Controller;
 import model.Person;
 
 public class Main {
-	
+	//prueba commit- borrar esta linea.
 	//Attributes
 	private Scanner sc;
 	private Controller controller;
