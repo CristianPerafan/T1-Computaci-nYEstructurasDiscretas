@@ -2,8 +2,8 @@ package model;
 
 import java.util.ArrayDeque;
 import java.util.Hashtable;
-import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Stack;
 
 
 public class Building {
@@ -19,8 +19,7 @@ public class Building {
 	private Floor [] floors;
 	private Person[] arrayPeople;
 	
-	private Queue<Person> people;
-	
+	private Stack<Person> people;
 	
 	
 	public Building(String identifier,int numPeople, int amountFloors, int numOfficesPerFloor,
@@ -35,16 +34,13 @@ public class Building {
 		this.amountFloors = amountFloors;
 		this.numOfficesPerFloor = numOfficesPerFloor;
 		
-		people = new PriorityQueue<>();
+		people = new Stack<>();
 		
 		arrayPeople = new Person[numPeople];
 		
 		floors = new Floor[amountFloors];
-		
-		
 		toSavePeopleAtPriorityQueue(other);
 		toSaveArrayPeopleToValue(other);
-		
 		
 	}
 	
@@ -69,19 +65,17 @@ public class Building {
 	
 	public String toShowBuildingInformation() {
 		String out = "";
-		out += "Building "+identifier+" information\n";
-		out += "Amount of people "+numPeople+"\n";
-		out += "Amount of  floors"+amountFloors+"\n";
-		out += "Amount of offices per floor"+numOfficesPerFloor+"\n";
+		out += "*** Building "+identifier+" information ***\n";
+		out += "\n";
+		out += "Amount of people: "+numPeople+".\n";
+		out += "Amount of  floors: "+amountFloors+".\n";
+		out += "Amount of offices per floor:"+numOfficesPerFloor+".\n";
 		
 		while(!people.isEmpty()) {
-			Person b = people.remove();
-			out += "name: "+b.getName()+" Floor: "+b.getFloorPersonIs()+" Destination office: "+b.getOfficesPersonGoes()+
-					" index: "+b.getIndexElevator()+"\n";
+			Person b = people.pop();
+			out += b.toString()+"\n";
 		}
-		
-		return out;
-		
+		return out;	
 	}
 	
 	//
@@ -91,6 +85,8 @@ public class Building {
 		return identifier;
 	}
 	
+	
+	//Mostrar movimientos aquí
 	public String toOrderArrayOfPeople() {
 		String out = "";
 		Queue<Integer> aux = new ArrayDeque<>();
@@ -144,8 +140,7 @@ public class Building {
 			
 		}
 		
-	
-		
+		toSaveArrayPeopleToValue(arrayPeople);		
 		return out;
 	}
 	

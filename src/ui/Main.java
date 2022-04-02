@@ -38,19 +38,12 @@ public class Main {
 		case 1:
 			toShowBuildingInformation();
 			break;
+		case 2:
+			startSimulation();
+			break;
 		}
 	}
-	
-	
-	public void ShowSimulationMenu() {
-		System.out.println("*** SIMULATION MENU ***\n"+
-						"(1) Find the information of a building\n"+
-						"(0) Exit");
-		
-		int option = sc.nextInt();
-		sc.nextLine();
-		executeOperationSimulationMenu(option);
-	}
+
 	
 	
 	public int showMenu() {
@@ -64,6 +57,17 @@ public class Main {
 		sc.nextLine();
 		return option;
 		
+	}
+	
+	public void ShowSimulationMenu() {
+		System.out.println("*** SIMULATION MENU ***\n"+
+						"(1) Find the information of a building\n"+
+						"(2) Start simulation\n"+
+						"(0) Exit");
+		
+		int option = sc.nextInt();
+		sc.nextLine();
+		executeOperationSimulationMenu(option);
 	}
 	
 	public void executeOperation(int option) {
@@ -139,8 +143,6 @@ public class Main {
 		
 			informationRegistered = true;
 			
-			System.out.println(controller.toOrderPeopleInElevator());
-			
 		}
 		
 	}
@@ -149,8 +151,12 @@ public class Main {
 		System.out.println("Enter the building identifier");
 		String identifier = sc.nextLine();
 		System.out.println(controller.ToShowBuildingInformation(identifier));
-	
 	}
+	
+	public void startSimulation() {
+		System.out.println(controller.toOrderPeopleInElevator());
+	}
+	
 	
 	
 

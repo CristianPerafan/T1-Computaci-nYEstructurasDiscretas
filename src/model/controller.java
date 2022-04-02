@@ -18,6 +18,7 @@ public class Controller {
 	
 	public String toOrderPeopleInElevator() {
 		String out = "";
+		
 		for(int i = 0;i<buildings.size();i++) {
 			out += buildings.get(i).toOrderPeopleInElevator()+"\n";
 		}
