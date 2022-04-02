@@ -5,11 +5,21 @@ public class Person implements Comparable<Person>{
 	private String name;
 	private int floorPersonIs;
 	private int OfficePersonGoes;
+	private int indexElevator;
 	
 	public Person(String name, int floorPersonIs, int floorPersonGoes) {
 		this.name = name;
 		this.floorPersonIs = floorPersonIs;
 		this.OfficePersonGoes = floorPersonGoes;
+		indexElevator = 0;
+	}
+	
+	public void setIndexElevator(int indexElevator) {
+		this.indexElevator = indexElevator;
+	}
+	
+	public int getIndexElevator() {
+		return indexElevator;
 	}
 	
 	
@@ -31,8 +41,16 @@ public class Person implements Comparable<Person>{
 
 	@Override
 	public int compareTo(Person o) {
-		// TODO Auto-generated method stub
-		return 0;
+		int out = 0;
+		if(o.getIndexElevator()>this.getIndexElevator()) {
+			out = -1;
+		}
+		else {
+			out = 1;
+		}
+		
+		return out;
+		
 	}
 	
 	

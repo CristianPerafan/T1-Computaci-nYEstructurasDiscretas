@@ -35,18 +35,23 @@ public class Main {
 		case 0:
 			showMenu();
 			break;
+		case 1:
+			toShowBuildingInformation();
+			break;
 		}
 	}
 	
-	public int ShowSimulationMenu() {
+	
+	public void ShowSimulationMenu() {
 		System.out.println("*** SIMULATION MENU ***\n"+
 						"(1) Find the information of a building\n"+
 						"(0) Exit");
 		
 		int option = sc.nextInt();
 		sc.nextLine();
-		return option;
+		executeOperationSimulationMenu(option);
 	}
+	
 	
 	public int showMenu() {
 		
@@ -134,8 +139,17 @@ public class Main {
 		
 			informationRegistered = true;
 			
+			System.out.println(controller.toOrderPeopleInElevator());
+			
 		}
 		
+	}
+	
+	public void toShowBuildingInformation() {
+		System.out.println("Enter the building identifier");
+		String identifier = sc.nextLine();
+		System.out.println(controller.ToShowBuildingInformation(identifier));
+	
 	}
 	
 	

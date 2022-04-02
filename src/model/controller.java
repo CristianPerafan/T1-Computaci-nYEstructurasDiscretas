@@ -15,6 +15,18 @@ public class Controller {
 		buildings.add(obj);
 	}
 	
+	
+	public String toOrderPeopleInElevator() {
+		String out = "";
+		for(int i = 0;i<buildings.size();i++) {
+			out += buildings.get(i).toOrderPeopleInElevator()+"\n";
+		}
+		
+		return out;
+		
+	}
+	
+	
 	public String ToShowBuildingInformation(String identifier) {
 		String out = "";
 		boolean stop = false;
@@ -25,7 +37,13 @@ public class Controller {
 			}
 		}
 		
+		if(out.equals("")) {
+			out = "The building does not exist";
+		}
+		
 		return out;
 	}
+	
+	
 
 }
