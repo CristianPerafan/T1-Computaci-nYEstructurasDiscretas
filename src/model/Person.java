@@ -1,24 +1,39 @@
 package model;
 
-public class Person {
+public class Person implements Comparable<Person>{
 	//Attributes
-	@SuppressWarnings("unused")
 	private String name;
 	private int floorPersonIs;
-	@SuppressWarnings("unused")
-	private int floorPersonGoes;
+	private int OfficePersonGoes;
 	
 	public Person(String name, int floorPersonIs, int floorPersonGoes) {
 		this.name = name;
 		this.floorPersonIs = floorPersonIs;
-		this.floorPersonGoes = floorPersonGoes;
+		this.OfficePersonGoes = floorPersonGoes;
+	}
+	
+	
+	
+	public String getName() {
+		return name;
 	}
 	
 	public int getFloorPersonIs() {
 		return floorPersonIs;
-		
 	}
-	
+
+	public int getOfficesPersonGoes() {
+		return OfficePersonGoes;
+	}
+
+
+
+
+	@Override
+	public int compareTo(Person o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }
