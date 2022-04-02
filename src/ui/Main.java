@@ -8,6 +8,7 @@ import model.Person;
 
 public class Main {
 	//prueba commit- borrar esta linea.
+	//segunda prueba
 	//Attributes
 	private Scanner sc;
 	private Controller controller;
