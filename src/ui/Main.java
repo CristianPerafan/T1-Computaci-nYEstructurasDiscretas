@@ -7,7 +7,6 @@ import model.Controller;
 import model.Person;
 
 public class Main {
-	
 	//Attributes
 	private Scanner sc;
 	private Controller controller;
