@@ -1,22 +1,22 @@
 package model;
 
 import java.util.Hashtable;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Building {
 	//Attributes
-	@SuppressWarnings("unused")
 	private String identifier;
-	@SuppressWarnings("unused")
 	private int numPeople;
-	@SuppressWarnings("unused")
 	private int amountFloors;
 	@SuppressWarnings("unused")
 	private int numOfficesPerFloor;
-	@SuppressWarnings({ "unused" })
+	@SuppressWarnings({"unused" })
 	private Hashtable<Integer,Floor> tableOffice; 
 	
-	@SuppressWarnings("unused")
 	private Floor [] floors;
+	
+	private Queue<Person> people;
 	
 	
 	
@@ -33,54 +33,35 @@ public class Building {
 		this.amountFloors = amountFloors;
 		this.numOfficesPerFloor = numOfficesPerFloor;
 		
+		people = new PriorityQueue<>();
+		
 		floors = new Floor[amountFloors];
 		
+		toSavePeopleAtPriorityQueue(other);
+	
+	}
+	
+	
+	public void toSavePeopleAtPriorityQueue(Person [] p) {
+		for(int i = 0;i<p.length;i++) {
+			people.add(p[i]);
+		}
+	}
+	
+	public String toShowBuildingInformation() {
+		String out = "";
+		out += "Building "+identifier+" information\n";
+		out += "Num people "+numPeople+"\n";
+		out += "Amount floors"+amountFloors+"\n";
+		out += "Num offices per floor"+numOfficesPerFloor+"\n";
+		
+		
+		return out;
+		
+	}
+	
+	
 
-		
-		toCreateFloors(floors,numOfficesPerFloor,other);
-		toSaveOfficesAtHashTable(floors);
-	}
-	
-	public void toCreateFloors(Floor[] array, int numOfficesPerFloor, Person [] people) {
-		
-		Person [] aux = null;
-		
-		for(int i = 0;i<array.length;i++) {
-			for(int k = 0;k<2;k++) {
-				int count = 1;
-				if(k == 0) {
-					for(int j = 0;j<people.length;j++) {
-					
-						if(people[j].getFloorPersonIs() == (i+1)) {
-							count++;
-						}
-					}
-					
-					aux = new Person[count];
-					
-				}
-				else {
-					
-					for(int j = 0;j<aux.length;j++) {
-						if(people[j].getFloorPersonIs() == (i+1)) {
-							aux[j] = people[j];
-						}
-					}
-				}
-				
-				
-			}
-		
-			floors[i] = new Floor(numOfficesPerFloor,aux);
-		}
-	}
-	
-	
-	public void toSaveOfficesAtHashTable(Floor[] array) {
-		for(int i = 0;i<array.length;i++) {
-			tableOffice.put(i+1,array[i]);
-		}
-	}
 	
 
 	
