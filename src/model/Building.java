@@ -9,7 +9,6 @@ public class Building {
 	private String identifier;
 	private int numPeople;
 	private int amountFloors;
-	@SuppressWarnings("unused")
 	private int numOfficesPerFloor;
 	@SuppressWarnings({"unused" })
 	private Hashtable<Integer,Floor> tableOffice; 
@@ -55,9 +54,20 @@ public class Building {
 		out += "Amount floors"+amountFloors+"\n";
 		out += "Num offices per floor"+numOfficesPerFloor+"\n";
 		
+		while(!people.isEmpty()) {
+			Person b = people.remove();
+			out += "name: "+b.getName()+" Floor: "+b.getFloorPersonIs()+" Office"+b.getOfficesPersonGoes()+"\n";
+		}
 		
 		return out;
 		
+	}
+	
+	//
+	// === GETTERS AND SETTERS
+	//
+	public String getIdentifier() {
+		return identifier;
 	}
 	
 	

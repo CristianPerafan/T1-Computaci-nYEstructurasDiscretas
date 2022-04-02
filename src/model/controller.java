@@ -15,8 +15,17 @@ public class Controller {
 		buildings.add(obj);
 	}
 	
-	public void ToShowBuildingInformation() {
+	public String ToShowBuildingInformation(String identifier) {
+		String out = "";
+		boolean stop = false;
+		for(int i = 0;i<buildings.size() && !stop;i++) {
+			if(buildings.get(i).getIdentifier().equals(identifier)) {
+				out = buildings.get(i).toShowBuildingInformation();
+				stop = true;
+			}
+		}
 		
+		return out;
 	}
 
 }
