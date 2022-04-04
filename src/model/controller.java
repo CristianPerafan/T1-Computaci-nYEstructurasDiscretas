@@ -62,6 +62,48 @@ public class Controller {
 		return out;
 	}
 	
+	public boolean validateIdentifier(String id) {
+		boolean out = false;
+		boolean stop = false;
+		for(int i = 0;i<buildings.size() && !stop;i++) {
+			if(buildings.get(i).getIdentifier().equals(id)) {
+				out = true;
+				stop = true;
+			}
+		}
+		return out;
+	}
+	
+	
+	public boolean validateNumOffices(int num,String id) {
+		boolean out = false;
+		boolean stop = false;
+		for(int i = 0;i<buildings.size() && !stop;i++) {
+			if(buildings.get(i).getIdentifier().equals(id)) {
+				out = buildings.get(i).validateNumExists(num);
+				stop = true;
+			}
+		}
+		return out;
+	}
+	
+	public String consultPersonInAOffice(String id,int num) {
+		String out = "";
+		boolean stop = false;
+		
+		for(int i = 0;i<buildings.size() && !stop;i++) {
+			if(buildings.get(i).getIdentifier().equals(id)) {
+				out = buildings.get(i).consultInformationOfThePerson(num);
+				stop = true;
+			}
+		}
+		
+		return out;
+		
+		
+	}
+	
+	
 	
 
 }

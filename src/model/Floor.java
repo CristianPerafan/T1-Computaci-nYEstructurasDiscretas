@@ -20,6 +20,24 @@ public class Floor {
 		return identifierOffices;
 	}
 	
+	public boolean getOfficesAvailable(int key) {
+		boolean out = false;
+		
+		if(peopleInOffice.get(key) == null) {
+			out = true;
+		}
+		
+		
+		return out;
+	}
+	
+	public Person getPersonInAOffice(int key) {
+		Person out = peopleInOffice.get(key);
+		return out;
+	}
+	
+	
+	
 	public void toAddPersonToHashTable(Integer key,Person p) {
 		peopleInOffice.put(key, p);
 	}

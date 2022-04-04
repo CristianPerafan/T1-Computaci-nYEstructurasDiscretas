@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -12,14 +11,14 @@ public class Building {
 	private String identifier;
 	private int numPeople;
 	private int amountFloors;
-	private int numOfficesPerFloor;
-	@SuppressWarnings({"unused" })
-	private Hashtable<Integer,Floor> tableOffice; 
+	private int totalOffices;
+	private int numOfficesPerFloor; 
 	private Floor [] floors;
 	private Person[] arrayPeople;
 	private Stack<Person> people;
 	
 	private ArrayList<Person> peopleOutBuilding;
+	private ArrayList<Person> peopleInBuilding;
 	
 	
 	public Building(String identifier,int numPeople, int amountFloors, int numOfficesPerFloor,
@@ -27,9 +26,6 @@ public class Building {
 		
 		this.identifier = identifier;
 		this.numPeople = numPeople;
-		
-		
-		tableOffice = new Hashtable<Integer, Floor>();
 		
 		this.amountFloors = amountFloors;
 		this.numOfficesPerFloor = numOfficesPerFloor;
@@ -43,6 +39,10 @@ public class Building {
 		toSaveArrayPeopleToValue(other);
 		
 		peopleOutBuilding = new ArrayList<>();
+		
+		peopleInBuilding = new ArrayList<>();
+		
+		totalOffices = amountFloors*numOfficesPerFloor;
 		
 	}
 	
@@ -152,42 +152,143 @@ public class Building {
 	
 	public String toAssignPeopleToOffices() {
 		String out = "";
+		
+		
 		while(!people.isEmpty()) {
 			Person aux = people.pop();
-			out += aux.toString()+"\n";
-			
 			int destinationOffice =  aux.getOfficesPersonGoes();
 			
 			boolean stop = false;
 			for(int i = 0;i<floors.length && !stop;i++) {
 				int [] identifier = floors[i].getIdentifierOffices();
-				
-				for(int j = 0;j<identifier.length;j++) {
+				@SuppressWarnings("unused")
+				boolean stopF = false;
+				for(int j = 0;j<identifier.length && !stop;j++) {
 					if(identifier[j] == destinationOffice) {
+
+						if(floors[i].getOfficesAvailable(destinationOffice)) {
+							floors[i].toAddPersonToHashTable(destinationOffice, aux);
+							out += aux.getName()+" enters de office "+ destinationOffice+" \n";
+							peopleInBuilding.add(aux);
+						}
+						else {
+							peopleOutBuilding.add(aux);
+							out += aux.getName()+" can not get into the office\n";
+						}
+						stopF = true;
 						stop = true;
 					}
 				}
 			}
 			
 		}
+		
+		out += " \n";
+		out += "***FINAL STATE "+identifier+" BUILDING***2\n";
+		out += "People in the building:\n";
+		out += "[";
+		
+		if(peopleInBuilding.size()>1) {
+			for(int i = 0;i<peopleInBuilding.size();i++) {
+				
+				if(i!=peopleInBuilding.size()-1) {
+					out += peopleInBuilding.get(i).getName()+",";
+				}
+				else {
+					out += peopleInBuilding.get(i).getName()+" ]\n";
+				}
+			}
+		}
+		else {
+			out += "]\n";
+		}
+		
+		
+		
+		out += "People out of the building:\n";
+		out += "[";
+		
+		if(peopleOutBuilding.size()>1) {
+			for(int i = 0;i<peopleOutBuilding.size();i++) {
+				if(i!=peopleOutBuilding.size()-1) {
+					out += peopleOutBuilding.get(i).getName()+",";
+				}
+				else {
+					out += peopleOutBuilding.get(i).getName()+" ]";
+				}
+			}
+		}
+		else {
+			out += "]\n";
+		}
+	
+		
 		return out;
 	}
 	
 	public void toSaveTheFloorInformation() {
+		int id = 1;
+		
 		for(int i = 0;i<floors.length;i++) {
 			floors[i] = new Floor(numOfficesPerFloor);
 			
-			int id = 1;
+			
 			int [] identifier = new int[numOfficesPerFloor];
 			
 			for(int j = 0;j<identifier.length;j++) {
-				identifier[i] = id;
+				identifier[j] = id;
 				id++;
 			}
 			
 			floors[i].toSaveOfficesIdentifiers(identifier);
 			
 		}
+	}
+	
+	public boolean validateNumExists(int num) {
+		boolean out = false;
+		
+		if(num>0) {
+			if(num<=totalOffices) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	
+	public String consultInformationOfThePerson(int num) {
+		String out = "";
+		int numFloor = consultNumOfFloorPersonIs(num);
+		
+		Person p = floors[numFloor].getPersonInAOffice(num);
+		
+		if(p == null) {
+			out = "There is no one in the office!!";
+		}
+		else {
+			out = p.getName()+" is in the office number "+num;
+		}
+		
+		
+		return out;
+	}
+	
+	public int consultNumOfFloorPersonIs(int num) {
+		int out = 0;
+		boolean stopi = false;
+		boolean stopj = false;
+		for(int i = 0;i<floors.length && !stopi;i++) {
+			int [] idFloors = new int[numOfficesPerFloor];
+			idFloors = floors[i].getIdentifierOffices();
+			for(int j = 0;j<idFloors.length && !stopj;j++) {
+				if(idFloors[j] == num) {
+					out = i;
+					stopi = true;
+					stopj = true;
+				}
+			}
+		}
+		return out;
 	}
 	
 }

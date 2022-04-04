@@ -11,9 +11,11 @@ public class Main {
 	private Scanner sc;
 	private Controller controller;
 	private boolean informationRegistered;
+	private boolean simulationPerformed;
 
 	public Main() {
 		informationRegistered = false;
+		simulationPerformed = false;
 		sc = new Scanner(System.in);
 		controller = new Controller();
 	}
@@ -41,6 +43,17 @@ public class Main {
 		case 2:
 			startSimulation();
 			break;
+		case 3:
+			if(simulationPerformed == true) {
+				consultPersonInsideAnOffice();
+			}
+			else {
+				System.out.println("To perform the query you must start the simulation!!!");
+				System.out.println("----> (2) Star simulation");
+				
+			}
+
+			break;
 		}
 	}
 
@@ -63,6 +76,7 @@ public class Main {
 		System.out.println("*** SIMULATION MENU ***\n"+
 						"(1) Find the information of a building\n"+
 						"(2) Start simulation\n"+
+						"(3) Consult person inside an office\n"+
 						"(0) Exit");
 		
 		int option = sc.nextInt();
@@ -86,6 +100,9 @@ public class Main {
 				System.out.println("You must first register the information of the simulation!!");
 			}
 			
+			break;
+		default:
+			System.out.println("No valid option!!!");
 			break;
 		}
 	}
@@ -182,6 +199,31 @@ public class Main {
 		System.out.println(" ");
 		System.out.println("==== Exit of people from the elevator ====");
 		System.out.println(controller.toPutPeopleAtOffices());
+		
+		simulationPerformed = true;
+	}
+	
+	public void consultPersonInsideAnOffice() {
+		System.out.println("***CONSULT MENU***");
+		System.out.println("Enter the identifier of the building in which you want to make the query:");
+		String identifier = sc.nextLine();
+		if(controller.validateIdentifier(identifier)) {
+			System.out.println("Enter the number of office:");
+			int numOffice = sc.nextInt();
+			sc.nextLine();
+			
+			if(controller.validateNumOffices(numOffice, identifier)) {
+				System.out.println(controller.consultPersonInAOffice(identifier,numOffice));
+			}
+			else {
+				System.out.println("The office number does not correspond to an office in the building "+identifier+"!!!");
+			}
+		}
+		else {
+			System.out.println("The identifier does not correspond to any building in the system!!!");
+		}
+		
+		
 	}
 	
 	
