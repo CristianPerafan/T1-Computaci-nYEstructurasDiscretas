@@ -208,7 +208,7 @@ public class Building {
 		out += "People out of the building:\n";
 		out += "[";
 		
-		if(peopleOutBuilding.size()>1) {
+		if(peopleOutBuilding.size()>0) {
 			for(int i = 0;i<peopleOutBuilding.size();i++) {
 				if(i!=peopleOutBuilding.size()-1) {
 					out += peopleOutBuilding.get(i).getName()+",";
