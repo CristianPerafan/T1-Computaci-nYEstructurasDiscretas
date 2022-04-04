@@ -20,11 +20,28 @@ public class Controller {
 		String out = "";
 		
 		for(int i = 0;i<buildings.size();i++) {
+			out += " \n";
+			out += "///ELEVATOR PEOPLE ENTER INFORMATION "+
+					buildings.get(i).getIdentifier()+" BUILDING///\n";
+			
 			out += buildings.get(i).toOrderPeopleInElevator()+"\n";
+			out += " \n";
 		}
 		
 		return out;
 		
+	}
+	
+	public String toPutPeopleAtOffices() {
+		String out = "";
+		for(int i = 0;i<buildings.size();i++) {
+			out += "\n";
+			out += "///ELEVATOR PEOPLE EXIT INFORMATION "+
+					buildings.get(i).getIdentifier()+" BUILDING///\n";
+			out += buildings.get(i).toAssignPeopleToOffices();
+			out += " \n";
+		}
+		return out;
 	}
 	
 	

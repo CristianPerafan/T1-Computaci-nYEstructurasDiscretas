@@ -4,21 +4,34 @@ import java.util.Hashtable;
 
 public class Floor {
 	//Attributes
-	
 	@SuppressWarnings("unused")
-	private Hashtable<Integer,Person> tableOffice;
+	private int numOfficesAvailable;
+	private Hashtable<Integer,Person> peopleInOffice;
+	private int [] identifierOffices;
 	
-	private Person[] peopleAtFloor;
 	
-	public Floor(int numOffices, Person [] people) {
-		peopleAtFloor = new Person[numOffices];
-		tableOffice = new Hashtable<Integer,Person>();
-		toSaveValuesPeopleAtFloor(people);
+	public Floor(int numOffices) {
+		this.numOfficesAvailable = numOffices;
+		peopleInOffice = new Hashtable<Integer,Person>();
+		identifierOffices = new int[numOffices];
 	}
 	
-	public void toSaveValuesPeopleAtFloor(Person [] people) {
-		for (int i = 0; i < peopleAtFloor.length; i++) {
-			peopleAtFloor[i] = people[i];
+	public int [] getIdentifierOffices() {
+		return identifierOffices;
+	}
+	
+	public void toAddPersonToHashTable(Integer key,Person p) {
+		peopleInOffice.put(key, p);
+	}
+	
+	public void setNumOfficesAvailable() {
+		numOfficesAvailable--;
+	}
+	
+	
+	public void toSaveOfficesIdentifiers(int [] identifiers) {
+		for(int i = 0;i<identifierOffices.length;i++) {
+			identifierOffices[i] = identifiers[i];
 		}
 	}
 }

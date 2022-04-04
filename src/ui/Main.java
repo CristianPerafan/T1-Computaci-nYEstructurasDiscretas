@@ -177,7 +177,11 @@ public class Main {
 	}
 	
 	public void startSimulation() {
+		System.out.println("==== Entrance of people to the elevator ====");
 		System.out.println(controller.toOrderPeopleInElevator());
+		System.out.println(" ");
+		System.out.println("==== Exit of people from the elevator ====");
+		System.out.println(controller.toPutPeopleAtOffices());
 	}
 	
 	

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Queue;
 import java.util.Stack;
@@ -14,12 +15,11 @@ public class Building {
 	private int numOfficesPerFloor;
 	@SuppressWarnings({"unused" })
 	private Hashtable<Integer,Floor> tableOffice; 
-	
-	@SuppressWarnings("unused")
 	private Floor [] floors;
 	private Person[] arrayPeople;
-	
 	private Stack<Person> people;
+	
+	private ArrayList<Person> peopleOutBuilding;
 	
 	
 	public Building(String identifier,int numPeople, int amountFloors, int numOfficesPerFloor,
@@ -39,8 +39,10 @@ public class Building {
 		arrayPeople = new Person[numPeople];
 		
 		floors = new Floor[amountFloors];
-		//toSavePeopleAtPriorityQueue(other);
+		 toSaveTheFloorInformation();
 		toSaveArrayPeopleToValue(other);
+		
+		peopleOutBuilding = new ArrayList<>();
 		
 	}
 	
@@ -110,13 +112,12 @@ public class Building {
 				posElevator = arrayPeople[i].getFloorPersonIs();
 			}
 			
-			//boolean stopFor = false;
 			for(int j = i+1;j<arrayPeople.length && !stop;j++) {
 				if(arrayPeople[j].getFloorPersonIs()>=posElevator) {
 					arrayPeople[j].setIndexElevator(index);
 					index++;
 					posElevator = arrayPeople[j].getFloorPersonIs();
-					out += "***The elevator is in the "+arrayPeople[j].getFloorPersonIs()+"floor***\n";
+					out += "***The elevator is in the "+arrayPeople[j].getFloorPersonIs()+" floor***\n";
 					out += "The elevator picks up "+arrayPeople[j].getName()+"\n";
 					//stopFor = true;
 					i = j-1;
@@ -138,16 +139,55 @@ public class Building {
 				if(j == indice) {
 					arrayPeople[j].setIndexElevator(index);
 					index++;
-					out += "***The elevator is in the"+arrayPeople[j].getFloorPersonIs()+"floor***\n";
+					out += "***The elevator is in the "+arrayPeople[j].getFloorPersonIs()+" floor***\n";
 					out += "The elevator picks up "+arrayPeople[j].getName()+"\n";
 				}
 			}
 			
 		}
 		
-		//toSaveArrayPeopleToValue(arrayPeople);
 		toSavePeopleAtPriorityQueue();
 		return out;
+	}
+	
+	public String toAssignPeopleToOffices() {
+		String out = "";
+		while(!people.isEmpty()) {
+			Person aux = people.pop();
+			out += aux.toString()+"\n";
+			
+			int destinationOffice =  aux.getOfficesPersonGoes();
+			
+			boolean stop = false;
+			for(int i = 0;i<floors.length && !stop;i++) {
+				int [] identifier = floors[i].getIdentifierOffices();
+				
+				for(int j = 0;j<identifier.length;j++) {
+					if(identifier[j] == destinationOffice) {
+						stop = true;
+					}
+				}
+			}
+			
+		}
+		return out;
+	}
+	
+	public void toSaveTheFloorInformation() {
+		for(int i = 0;i<floors.length;i++) {
+			floors[i] = new Floor(numOfficesPerFloor);
+			
+			int id = 1;
+			int [] identifier = new int[numOfficesPerFloor];
+			
+			for(int j = 0;j<identifier.length;j++) {
+				identifier[i] = id;
+				id++;
+			}
+			
+			floors[i].toSaveOfficesIdentifiers(identifier);
+			
+		}
 	}
 	
 }
