@@ -39,7 +39,7 @@ public class Building {
 		arrayPeople = new Person[numPeople];
 		
 		floors = new Floor[amountFloors];
-		toSavePeopleAtPriorityQueue(other);
+		//toSavePeopleAtPriorityQueue(other);
 		toSaveArrayPeopleToValue(other);
 		
 	}
@@ -57,9 +57,9 @@ public class Building {
 			arrayPeople[i] = other[i];
 		}
 	}
-	public void toSavePeopleAtPriorityQueue(Person [] p) {
-		for(int i = 0;i<p.length;i++) {
-			people.add(p[i]);
+	public void toSavePeopleAtPriorityQueue() {
+		for(int i = 0;i<arrayPeople.length;i++ ) {
+			people.add(arrayPeople[i]);
 		}
 	}
 	
@@ -70,11 +70,12 @@ public class Building {
 		out += "Amount of people: "+numPeople+".\n";
 		out += "Amount of  floors: "+amountFloors+".\n";
 		out += "Amount of offices per floor:"+numOfficesPerFloor+".\n";
-		
-		while(!people.isEmpty()) {
-			Person b = people.pop();
-			out += b.toString()+"\n";
+		out += "\n";
+		for(int i = 0;i<arrayPeople.length;i++) {
+			out += arrayPeople[i].toString()+"\n";
+			out += " \n";
 		}
+		
 		return out;	
 	}
 	
@@ -86,34 +87,38 @@ public class Building {
 	}
 	
 	
-	//Mostrar movimientos aquí
 	public String toOrderArrayOfPeople() {
 		String out = "";
 		Queue<Integer> aux = new ArrayDeque<>();
 		
 		
 		int index = 1;
-	
+		
+		out += "***The elevator is in the 1 floor***\n";
+		
 		arrayPeople[0].setIndexElevator(index);
 		index++;
 		
+		out += "The elevator picks up "+arrayPeople[0].getName()+"\n";
+		
 		boolean stop = false;
-		@SuppressWarnings("unused")
-		int count = 1;
+		
 		int posElevator = 1;
 		
 		for(int i = 0;i<arrayPeople.length;i++) {
 			if(i == 0) {	
 				posElevator = arrayPeople[i].getFloorPersonIs();
 			}
-			@SuppressWarnings("unused")
-			boolean stopFor = false;
+			
+			//boolean stopFor = false;
 			for(int j = i+1;j<arrayPeople.length && !stop;j++) {
 				if(arrayPeople[j].getFloorPersonIs()>=posElevator) {
 					arrayPeople[j].setIndexElevator(index);
 					index++;
 					posElevator = arrayPeople[j].getFloorPersonIs();
-					stopFor = true;
+					out += "***The elevator is in the "+arrayPeople[j].getFloorPersonIs()+"floor***\n";
+					out += "The elevator picks up "+arrayPeople[j].getName()+"\n";
+					//stopFor = true;
 					i = j-1;
 				}
 				else {
@@ -129,21 +134,20 @@ public class Building {
 				indice = aux.poll();
 			}
 			
-			out += "indice: "+indice+"\n";
-			
 			for(int j = 0;j<arrayPeople.length;j++) {
 				if(j == indice) {
 					arrayPeople[j].setIndexElevator(index);
 					index++;
+					out += "***The elevator is in the"+arrayPeople[j].getFloorPersonIs()+"floor***\n";
+					out += "The elevator picks up "+arrayPeople[j].getName()+"\n";
 				}
 			}
 			
 		}
 		
-		toSaveArrayPeopleToValue(arrayPeople);		
+		//toSaveArrayPeopleToValue(arrayPeople);
+		toSavePeopleAtPriorityQueue();
 		return out;
 	}
-	
-	
 	
 }

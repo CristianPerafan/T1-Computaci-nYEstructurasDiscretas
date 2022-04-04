@@ -92,8 +92,32 @@ public class Main {
 	
 	public void readSimulationInformation() {
 		System.out.println("*** SIMULATION INFORMATION ***\n"+
-				"Enter simulation data");
+				"Enter simulation data: ");
 		
+		if(informationRegistered == true) {
+			System.out.println("Do you want to overwrite the simulation information? YES or NOT");
+			
+			String answer = sc.nextLine().toUpperCase();
+			
+			if(answer.equals("YES")) {
+				toEnterDataSimulation();
+			}
+			else if(answer.equals("NOT")) {
+				showMenu();
+			}
+			else {
+				System.out.println("No valid option!!");
+			}
+		}
+		else {
+			toEnterDataSimulation();
+		}
+		
+
+		
+	}
+	
+	public void toEnterDataSimulation() {
 		int numberOfBuildings = sc.nextInt();
 		sc.nextLine();
 		
@@ -137,15 +161,14 @@ public class Main {
 			
 			//To create a new object(Building)
 			Building obj = new Building(identifier,numPeople,amountFloors,numOfficesPerFloor,peopleAtBuilding);
-			System.out.println(obj.toString());
 			
 			controller.addABuildingToAList(obj);
 		
 			informationRegistered = true;
 			
 		}
-		
 	}
+	
 	
 	public void toShowBuildingInformation() {
 		System.out.println("Enter the building identifier");

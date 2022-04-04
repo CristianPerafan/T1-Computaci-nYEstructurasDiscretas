@@ -41,7 +41,6 @@ public class Person implements Comparable<Person>{
 		out += "Name: "+name+"\n";
 		out += "Floor: "+floorPersonIs+"\n";
 		out += "Destination office: "+OfficePersonGoes+"\n";
-		out += "Index: "+indexElevator+"\n";
 		return out;
 	}
 
